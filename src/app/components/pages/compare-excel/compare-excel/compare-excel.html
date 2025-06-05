@@ -1,0 +1,68 @@
+<nav class="navbar">
+
+  <div class="navbar-left">
+    <span class="navbar-title">Compare Excel</span>
+  </div>
+
+  <div class="navbar-right">
+    <div class="tooltip-container">
+      <button class="icon-button"><img src="assets/refresh.png" (click)="reloadPage()" alt="Refresh"></button>
+      <span class="tooltip-text">Refresh</span>
+    </div>
+    <div class="tooltip-container">
+      <button class="icon-button"><img src="assets/add.png"  alt="Add"></button>
+      <span class="tooltip-text">Add</span>
+    </div>
+    <div class="tooltip-container">
+
+      <button class="icon-button"><img src="assets/download.png" (click)="showUploadModal = true"  alt="Download"></button>
+      <span class="tooltip-text">Upload File</span>
+    </div>
+    <div class="tooltip-container">
+      <button class="icon-button"><img src="assets/page.png"></button>
+      <span class="tooltip-text">Column Picker</span>
+    </div>
+  </div>
+</nav>
+
+
+<div class="modal-overlay" *ngIf="showUploadModal">
+  <div class="modal-content">
+    <p>Import Files</p>
+
+<div class="pdf-box">
+
+  <input type="file" (change)="onFile1Selected($event)" />
+</div>
+
+<div class="pdf-box">
+
+  <input type="file" (change)="onFile2Selected($event)" />
+</div>
+
+
+    <div class="modal-actions">
+      <button class="clear-button" (click)="clear()">Cancel</button>
+      <button class="apply-button" (click)="apply()">Upload</button>
+    </div>
+  </div>
+</div>
+
+
+
+<div class="table-container" *ngIf="comparisonResult.length > 0">
+  <table class="company-table">
+    <thead>
+      <tr>
+        <th *ngFor="let header of comparisonHeaders">{{ header }}</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let row of comparisonResult">
+        <td *ngFor="let header of comparisonHeaders">{{ row[header] }}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+

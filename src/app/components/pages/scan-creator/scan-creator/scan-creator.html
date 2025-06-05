@@ -1,0 +1,111 @@
+<nav class="navbar">
+
+  <div class="navbar-left">
+    <span class="navbar-title">Excel Scan Creator</span>
+  </div>
+
+  <div class="navbar-right">
+     <button class="qr-button" (click)="generateQRCodes()">Generate QR Codes</button>
+    <div class="tooltip-container">
+      <button class="icon-button"><img src="assets/refresh.png" (click)="reloadPage()" alt="Refresh"></button>
+      <span class="tooltip-text">Refresh</span>
+    </div>
+    <div class="tooltip-container">
+      <button class="icon-button"><img src="assets/add.png"  alt="Add"></button>
+      <span class="tooltip-text">Add</span>
+    </div>
+    <div class="tooltip-container">
+
+      <button class="icon-button"><img src="assets/download.png"  (click)="open()" alt="Download"></button>
+      <span class="tooltip-text">Upload File</span>
+    </div>
+    <div class="tooltip-container">
+      <button class="icon-button"><img src="assets/page.png"></button>
+      <span class="tooltip-text">Column Picker</span>
+    </div>
+  </div>
+</nav>
+
+
+
+
+
+<!-- Upload Modal -->
+<div class="modal-overlay" *ngIf="showUploadModal">
+  <div class="modal-content">
+    <p>Import File</p>
+
+    <div class="pdf-box">
+      <!-- <p class="download-text">Download Sample PDF</p> -->
+            <input type="file" (change)="onFileSelected($event)" />
+    </div>
+
+    <!-- <div class="file-upload">
+      <input type="file" (change)="onFileSelected($event)" />
+    </div> -->
+
+    <div class="modal-actions">
+
+      <button class="clear-button" (click)="clear()">Cancel</button>
+            <button class="apply-button" (click)="apply()">Upload</button>
+    </div>
+  </div>
+</div>
+
+
+
+<div class="table-container" *ngIf="excelData.length > 0">
+
+  <table class="company-table">
+    <thead>
+      <tr>
+        <th>
+          <input type="checkbox" (change)="toggleAllCheckboxes($event)" />
+        </th>
+        <th *ngFor="let header of excelData[0]">{{ header }}</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let row of excelData.slice(1); let i = index">
+        <td>
+          <input type="checkbox" [(ngModel)]="selectedRows[i]" />
+        </td>
+        <td *ngFor="let cell of row">{{ cell }}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- 
+<button (click)="generateQRCodes()">Generate QR Codes</button> -->
+
+<!-- <div *ngIf="qrCodes.length > 0" class="qr-code-container">
+  <div *ngFor="let code of qrCodes" class="qr-item">
+    <qrcode [qrdata]="code" [width]="150" [errorCorrectionLevel]="'M'"></qrcode>
+    <p>{{ code }}</p>
+  </div>
+</div> -->
+
+
+
+
+
+<!-- QR Code Modal -->
+<div class="modal-overlay" *ngIf="showQRModal">
+  <div class="modal-content large">
+    <h3>Generated QR Codes</h3>
+
+    <div class="qr-code-container">
+      <div *ngFor="let code of qrCodes" class="qr-item">
+        <qrcode [qrdata]="code" [width]="150" [errorCorrectionLevel]="'M'"></qrcode>
+        <p>{{ code }}</p>
+      </div>
+    </div>
+
+    <div class="modal-actions">
+      <button class="clear-button" (click)="showQRModal = false">Close</button>
+    </div>
+  </div>
+</div>
+
+
