@@ -42,7 +42,7 @@ export class Login {
     this.http.post("http://localhost:5041/api/Auth/login", this.loginForm.value,)
       .subscribe({
         next: (res: any) => {
-          if (res.message) {
+          if (res.message == "Login successful") {
             localStorage.setItem("userEmail", this.loginForm.value.email);
             localStorage.setItem("authType", "login");
             this.alertService.showAlert(res.message,"success");
