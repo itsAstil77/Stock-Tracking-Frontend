@@ -26,7 +26,7 @@
 /* Left Side */
 .navbar-left {
   font-size: 15px;
-  font-family: 'RedHatDisplay-Bold';
+  font-family: 'RedHatDisplay-Regular';
 }
 
 /* Right Side */
@@ -96,7 +96,10 @@
 }
 
 
-
+.file{
+      font-family: 'RedHatDisplay-Regular';
+      font-size: 14px;
+}
 
 .modal-overlay {
   position: fixed;
@@ -158,7 +161,12 @@
 
   cursor: pointer;
   height: 40px;
+  font-family: 'RedHatDisplay-Regular';
   
+}
+
+p{
+      font-family: 'RedHatDisplay-Regular';
 }
 
 .apply-button {

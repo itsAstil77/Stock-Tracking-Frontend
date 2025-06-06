@@ -26,7 +26,7 @@
 /* Left Side */
 .navbar-left {
   font-size: 15px;
-  font-family: 'RedHatDisplay-Bold';
+    font-family: 'RedHatDisplay-Regular';
 }
 
 /* Right Side */
@@ -110,7 +110,9 @@
     margin-top: 30px;
   }
   
-  
+  p{
+        font-family: 'RedHatDisplay-Regular';
+  }
 
   th, td {
     border: 1px solid #ddd;
@@ -353,8 +355,9 @@ select {
 /* Modal Title */
 .delete-modal-content p {
   margin-bottom: 15px;
-  font-size: 18px;
+  font-size: 17px;
   color: #333;
+  font-family: 'RedHatDisplay-Regular';
 }
 
 /* Button Container */
@@ -363,7 +366,7 @@ select {
   justify-content: center;
   gap: 10px;
   margin-top: 15px;
-  font-family: 'RedHatDisplay-Regular';
+
 }
 
 /* Yes Button */
@@ -377,6 +380,7 @@ select {
   font-size: 14px;
   transition: background 0.3s ease;
   width: 80px;
+  font-family: 'RedHatDisplay-Regular';
 }
 
 
@@ -392,4 +396,5 @@ select {
   font-size: 14px;
   transition: background 0.3s ease;
   width: 80px;
+  font-family: 'RedHatDisplay-Regular';
 }

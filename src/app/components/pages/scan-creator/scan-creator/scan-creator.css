@@ -3,6 +3,7 @@
   padding: 0;
   box-sizing: border-box;
 
+
 }
 
 
@@ -26,7 +27,7 @@
 /* Left Side */
 .navbar-left {
   font-size: 15px;
-  font-family: 'RedHatDisplay-Bold';
+  font-family: 'RedHatDisplay-Regular';
 }
 
 /* Right Side */
@@ -117,6 +118,7 @@
   max-width: 90%;
   box-shadow: 0 0 20px rgba(0,0,0,0.2);
   text-align: center;
+      font-family: 'RedHatDisplay-Regular';
 }
 
 .pdf-box {
@@ -333,6 +335,7 @@
   cursor: pointer;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
   transition: background-color 0.3s ease;
+      font-family: 'RedHatDisplay-Regular';
 }
 
 .qr-button:hover {
