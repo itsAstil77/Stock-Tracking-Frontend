@@ -111,7 +111,7 @@
 
 .modal-content {
   background: #fff;
-  border-radius: 20px;
+  /* border-radius: 20px; */
   padding: 30px;
   width: 500px;
   max-width: 90%;
@@ -291,14 +291,14 @@
 .modal-content {
   background: white;
   padding: 20px;
-  border-radius: 12px;
+  /* border-radius: 12px; */
   max-height: 80%;
   
   overflow-y: auto;
 }
 
 .modal-content.large {
-  width: 40%;
+  width: 44%;
 }
 
 .qr-code-container {

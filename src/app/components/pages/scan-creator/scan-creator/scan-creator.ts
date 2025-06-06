@@ -5,6 +5,7 @@ import * as XLSX from 'xlsx';
 import { FormsModule } from '@angular/forms';
 import { QRCodeComponent } from 'angularx-qrcode';
 import { Alert } from '../../../services/alert/alert';
+import { ZXingScannerModule } from '@zxing/ngx-scanner';
 
 @Component({
   selector: 'app-scan-creator',
@@ -111,38 +112,75 @@ qrCodes: string[] = [];
 showQRModal = false; // Controls modal visibility
 
 
+// generateQRCodes() {
+//   this.qrCodes = [];
+
+//   // Ensure excelData and selectedRows are ready
+//   if (!this.excelData || this.excelData.length < 2) {
+//     this.alertService.showAlert('No data to generate QR codes.',"error");
+//     return;
+//   }
+
+//   const selectedData = this.excelData.slice(1).filter((_, index) => this.selectedRows[index]);
+
+//   if (selectedData.length === 0) {
+//     this.alertService.showAlert('Please select at least one row to generate QR codes.',"error");
+//     return;
+//   }
+
+//   selectedData.forEach((row) => {
+//     const rowData: { [key: string]: any } = {};
+
+//     // Map header to values
+//     this.excelData[0].forEach((header, i) => {
+//       rowData[header] = row[i];
+//     });
+
+//     // Format QR code content as JSON string (or customize here)
+//     const qrContent = JSON.stringify(rowData);
+//     this.qrCodes.push(qrContent);
+//   });
+
+//   this.showQRModal = true;
+// }
+
+
+
 generateQRCodes() {
   this.qrCodes = [];
 
   // Ensure excelData and selectedRows are ready
   if (!this.excelData || this.excelData.length < 2) {
-    this.alertService.showAlert('No data to generate QR codes.',"error");
+    this.alertService.showAlert('No data to generate QR codes.', "error");
     return;
   }
 
   const selectedData = this.excelData.slice(1).filter((_, index) => this.selectedRows[index]);
 
   if (selectedData.length === 0) {
-    this.alertService.showAlert('Please select at least one row to generate QR codes.',"error");
+    this.alertService.showAlert('Please select at least one row to generate QR codes.', "error");
+    return;
+  }
+
+  // Find the index of the "Barcode" header
+  const barcodeHeaderIndex = this.excelData[0].findIndex(header => 
+    header.toLowerCase() === 'barcode'
+  );
+
+  if (barcodeHeaderIndex === -1) {
+    this.alertService.showAlert('No "Barcode" column found in the data.', "error");
     return;
   }
 
   selectedData.forEach((row) => {
-    const rowData: { [key: string]: any } = {};
-
-    // Map header to values
-    this.excelData[0].forEach((header, i) => {
-      rowData[header] = row[i];
-    });
-
-    // Format QR code content as JSON string (or customize here)
-    const qrContent = JSON.stringify(rowData);
-    this.qrCodes.push(qrContent);
+    // Get just the barcode value from the row
+    const barcodeValue = row[barcodeHeaderIndex];
+    
+    // Use the barcode value directly as QR content
+    this.qrCodes.push(barcodeValue);
   });
 
   this.showQRModal = true;
 }
-
-
 
 }
