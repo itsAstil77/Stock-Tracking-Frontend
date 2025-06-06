@@ -45,7 +45,7 @@ export class Login {
           if (res.message) {
             localStorage.setItem("userEmail", this.loginForm.value.email);
             localStorage.setItem("authType", "login");
-            this.alertService.showAlert("Login successful!","success");
+            this.alertService.showAlert(res.message,"success");
             this.router.navigateByUrl('/dashboard');
 
           } else {
