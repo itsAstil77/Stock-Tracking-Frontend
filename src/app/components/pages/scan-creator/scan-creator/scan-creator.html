@@ -16,7 +16,7 @@
     </div>
     <div class="tooltip-container">
 
-      <button class="icon-button"><img src="assets/download.png"  (click)="open()" alt="Download"></button>
+      <button class="icon-button"><img src="assets/upload.png"  (click)="open()" alt="Download"></button>
       <span class="tooltip-text">Upload File</span>
     </div>
     <div class="tooltip-container">
@@ -93,7 +93,7 @@
 <!-- QR Code Modal -->
 <div class="modal-overlay" *ngIf="showQRModal">
   <div class="modal-content large">
-    <h3>Generated QR Codes</h3>
+    <p>Generated QR Codes</p>
 
     <div class="qr-code-container">
       <div *ngFor="let code of qrCodes" class="qr-item">

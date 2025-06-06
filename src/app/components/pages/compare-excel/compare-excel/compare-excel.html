@@ -15,7 +15,7 @@
     </div>
     <div class="tooltip-container">
 
-      <button class="icon-button"><img src="assets/download.png" (click)="showUploadModal = true"  alt="Download"></button>
+      <button class="icon-button"><img src="assets/upload.png" (click)="showUploadModal = true"  alt="Download"></button>
       <span class="tooltip-text">Upload File</span>
     </div>
     <div class="tooltip-container">
@@ -28,7 +28,11 @@
 
 <div class="modal-overlay" *ngIf="showUploadModal">
   <div class="modal-content">
-    <p>Import Files</p>
+    <div class="modal-header">
+      <p>Import Files</p>
+      <button class="import-online-button" (click)="openImportOnline()">Import Online</button>
+    </div>
+
 
 <div class="pdf-box">
 
@@ -48,6 +52,32 @@
   </div>
 </div>
 
+
+
+<!-- Import Online Modal -->
+<div class="modal-overlay" *ngIf="showOnlineModal">
+  <div class="modal-content">
+    <p>Import Online</p>
+
+<div class="form-row">
+  <div class="form-group">
+    <label>Start Date</label>
+    <input type="date" [(ngModel)]="startDate" />
+  </div>
+
+  <div class="form-group">
+    <label>End Date</label>
+    <input type="date" [(ngModel)]="endDate" />
+  </div>
+</div>
+
+
+    <div class="modal-actions">
+      <button class="clear-button" (click)="closeOnline()">Cancel</button>
+      <button class="apply-button" (click)="download()">Download</button>
+    </div>
+  </div>
+</div>
 
 
 <div class="table-container" *ngIf="comparisonResult.length > 0">

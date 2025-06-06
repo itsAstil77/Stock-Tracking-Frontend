@@ -46,7 +46,7 @@ export class Login {
             localStorage.setItem("userEmail", this.loginForm.value.email);
             localStorage.setItem("authType", "login");
             this.alertService.showAlert("Login successful!","success");
-            this.router.navigateByUrl('/otp');
+            this.router.navigateByUrl('/dashboard');
 
           } else {
             this.alertService.showAlert("Invalid login credentials!", "error");

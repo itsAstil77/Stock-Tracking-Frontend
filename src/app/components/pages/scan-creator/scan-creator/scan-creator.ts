@@ -5,7 +5,7 @@ import * as XLSX from 'xlsx';
 import { FormsModule } from '@angular/forms';
 import { QRCodeComponent } from 'angularx-qrcode';
 import { Alert } from '../../../services/alert/alert';
-import { ZXingScannerModule } from '@zxing/ngx-scanner';
+// import { ZXingScannerModule } from '@zxing/ngx-scanner';
 
 @Component({
   selector: 'app-scan-creator',

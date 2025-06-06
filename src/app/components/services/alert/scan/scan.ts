@@ -6,7 +6,7 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class Scan {
- private uploadUrl = 'http://172.16.100.66:5041/api/Excel/upload';
+ private uploadUrl = 'http://localhost:5041/api/Excel/upload';
 
   constructor(private http: HttpClient) {}
 
@@ -22,8 +22,15 @@ compareExcels(file1: File, file2: File): Observable<any> {
   formData.append('file1', file1); // Match backend's expected key
   formData.append('file2', file2); // Match backend's expected key
 
-  return this.http.post('http://172.16.100.66:5041/api/ExcelCompare/compare', formData);
+  return this.http.post('http://localhost:5041/api/ExcelCompare/compare', formData);
 }
 
+
+private baseUrl = 'http://localhost:5041/api/Excel';
+
+  exportExcel(startDate: string, endDate: string) {
+    const url = `${this.baseUrl}/export?startDate=${startDate}&endDate=${endDate}`;
+    return this.http.get(url, { responseType: 'blob' }); // Download file as blob
+  }
 
 }

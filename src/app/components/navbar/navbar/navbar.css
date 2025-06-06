@@ -28,7 +28,7 @@
     justify-content: space-between;
     color: white;
     font-size: 22px;
-    font-family: 'RedHatDisplay-Bold';
+    font-family: 'RedHatDisplay-Regular'; 
     font-weight: bold;
     
   }
@@ -36,7 +36,7 @@
   /* Toggle Button */
   .menu-button {
     font-size: 24px;
-    font-family: 'RedHatDisplay-Bold';
+    font-family: 'RedHatDisplay-Regular';
     background: none;
     border: none;
     color: white;
@@ -48,7 +48,7 @@
    /* Navbar Title */
    .navbar-title {
     text-align: center;
-    font-family: 'RedHatDisplay-Bold';
+    font-family: 'RedHatDisplay-Regular';
     flex-grow: 1;
     color: white;
     font-weight: bold;

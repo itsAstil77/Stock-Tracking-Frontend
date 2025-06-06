@@ -2,10 +2,12 @@ import { CommonModule } from '@angular/common';
 import { ChangeDetectorRef, Component } from '@angular/core';
 import { Scan } from '../../../services/alert/scan/scan';
 import { Alert } from '../../../services/alert/alert';
+import { FormsModule } from '@angular/forms';
+import { saveAs } from 'file-saver';
 
 @Component({
   selector: 'app-compare-excel',
-  imports: [CommonModule],
+  imports: [CommonModule,FormsModule],
   templateUrl: './compare-excel.html',
   styleUrl: './compare-excel.css'
 })
@@ -67,6 +69,7 @@ comparisonHeaders: string[] = [];
 
 
 apply() {
+
   if (this.selectedFile1 && this.selectedFile2) {
     this.scan.compareExcels(this.selectedFile1, this.selectedFile2).subscribe({
       next: (response) => {
@@ -102,6 +105,44 @@ clear() {
 }
 
 
+
+showOnlineModal = false;
+
+startDate: string = '';
+endDate: string = '';
+
+openImportOnline() {
+  this.showUploadModal = false;
+  this.showOnlineModal = true;
+  this.startDate="",
+  this.endDate=""
+}
+
+closeOnline() {
+  this.showOnlineModal = false;
+}
+
+ download() {
+    if (!this.startDate || !this.endDate) {
+      this.alertService.showAlert('Please select start and end dates',"error");
+      return;
+    }
+
+    this.scan.exportExcel(this.startDate, this.endDate).subscribe({
+      next: (blob) => {
+        const fileName = `Report-${this.startDate}-to-${this.endDate}.xlsx`;
+        saveAs(blob, fileName);
+         this.alertService.showAlert('File downloaded successfully',"success");
+         this.showOnlineModal = false;
+         this.showUploadModal = true;
+         this.cdRef.detectChanges(); 
+      },
+      error: (err) => {
+        console.error('Download failed', err);
+        this.alertService.showAlert('Failed to download Excel file',"error");
+      }
+    });
+  }
 
 
 

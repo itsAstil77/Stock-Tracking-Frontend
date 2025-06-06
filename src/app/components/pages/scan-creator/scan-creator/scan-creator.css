@@ -23,7 +23,9 @@
 
 }
 
-
+p{
+   font-family: 'RedHatDisplay-Regular';
+}
 /* Left Side */
 .navbar-left {
   font-size: 15px;
