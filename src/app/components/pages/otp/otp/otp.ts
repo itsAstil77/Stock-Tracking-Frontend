@@ -65,7 +65,7 @@ onSubmit() {
 
   this.otpObj.otp = otpValue;
 
-  this.http.post("http://172.16.100.66:5041/api/Auth/verify-otp", this.otpObj)
+  this.http.post("http://localhost:5041/api/Auth/verify-otp", this.otpObj)
     .subscribe({
       next: (res: any) => {
         if (res.message === "OTP verified successfully") {
@@ -118,7 +118,7 @@ onSubmit() {
 
     this.isResending = true; // Disable button temporarily
 
-    this.http.post("http://172.16.100.66:5041/api/Auth/resend-otp", { email: this.otpObj.email })
+    this.http.post("http://localhost:5041/api/Auth/resend-otp", { email: this.otpObj.email })
       .subscribe({
         next: (res: any) => {
           this.alertService.showAlert("OTP resent successfully! Please check your email.");
