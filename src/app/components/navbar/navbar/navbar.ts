@@ -72,11 +72,11 @@ export class Navbar  implements OnInit  {
     confirmNewPassword: ['', Validators.required]
   });
 
-  const userId = localStorage.getItem("userId");
-  if (!userId) {
-    this.alertService.showAlert("User ID not found. Please log in again.", "error");
-    this.router.navigateByUrl("login");
-  }
+  // const userId = localStorage.getItem("userId");
+  // if (!userId) {
+  //   //this.alertService.showAlert("User ID not found. Please log in again.", "error");
+  //   //this.router.navigateByUrl("login");
+  // }
 
   // ✅ Set active menu item based on current route
   const currentUrl = this.router.url;
@@ -134,8 +134,8 @@ export class Navbar  implements OnInit  {
       console.log("User ID from localStorage:", userId); // ✅ This confirms user ID is retrieved
     
       if (!userId) {
-        this.alertService.showAlert("User ID not found. Please log in again.");
-        return;
+        //this.alertService.showAlert("User ID not found. Please log in again.");
+        //return;
       }
     
       const payload = {
