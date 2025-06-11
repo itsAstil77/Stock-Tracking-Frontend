@@ -7,13 +7,13 @@ import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-navbar',
-  imports: [CommonModule,RouterModule,FormsModule,ReactiveFormsModule],
+  imports: [CommonModule, RouterModule, FormsModule, ReactiveFormsModule],
   templateUrl: './navbar.html',
   styleUrl: './navbar.css'
 })
-export class Navbar  implements OnInit  {
+export class Navbar implements OnInit {
 
-    constructor(private router: Router,   private alertService: Alert,private http:HttpClient,private fb: FormBuilder) {}
+  constructor(private router: Router, private alertService: Alert, private http: HttpClient, private fb: FormBuilder) { }
 
 
 
@@ -28,10 +28,10 @@ export class Navbar  implements OnInit  {
     this.isSidebarCollapsed = !this.isSidebarCollapsed;
   }
 
-  toggleAdministration() {
-    this.isAdminExpanded = !this.isAdminExpanded;
-    this.setActive('administration');
-  }
+  // toggleAdministration() {
+  //   this.isAdminExpanded = !this.isAdminExpanded;
+  //   this.setActive('administration');
+  // }
 
   toggleDropdown(event: Event) {
     event.stopPropagation(); // Prevent immediate closing
@@ -42,135 +42,156 @@ export class Navbar  implements OnInit  {
     this.isDropdownOpen = false;
   }
 
-    loggedInUsername: string = '';
-  
-    // ngOnInit(): void {
-    //   this.loggedInUsername = localStorage.getItem('userEmail') || 'Guest';
+  loggedInUsername: string = '';
 
-    //   this.passwordForm = this.fb.group({
-    //     currentPassword: ['', Validators.required],
-    //     newPassword: ['', [Validators.required, Validators.minLength(6)]],
-    //     confirmNewPassword: ['', Validators.required]
-    //   });
+  // ngOnInit(): void {
+  //   this.loggedInUsername = localStorage.getItem('userEmail') || 'Guest';
+
+  //   this.passwordForm = this.fb.group({
+  //     currentPassword: ['', Validators.required],
+  //     newPassword: ['', [Validators.required, Validators.minLength(6)]],
+  //     confirmNewPassword: ['', Validators.required]
+  //   });
 
 
-    //   const userId = localStorage.getItem("userId");
-    //   console.log("User ID from localStorage in update-password:", userId);
-    
-    //   if (!userId) {
-    //     this.alertService.showAlert("User ID not found. Please log in again.", "error");
-    //     this.router.navigateByUrl("login");
-    //   }
-    // }
+  //   const userId = localStorage.getItem("userId");
+  //   console.log("User ID from localStorage in update-password:", userId);
 
-    ngOnInit(): void {
-  this.loggedInUsername = localStorage.getItem('userEmail') || 'Guest';
-
-  this.passwordForm = this.fb.group({
-    currentPassword: ['', Validators.required],
-    newPassword: ['', [Validators.required, Validators.minLength(6)]],
-    confirmNewPassword: ['', Validators.required]
-  });
-
-  // const userId = localStorage.getItem("userId");
-  // if (!userId) {
-  //   //this.alertService.showAlert("User ID not found. Please log in again.", "error");
-  //   //this.router.navigateByUrl("login");
+  //   if (!userId) {
+  //     this.alertService.showAlert("User ID not found. Please log in again.", "error");
+  //     this.router.navigateByUrl("login");
+  //   }
   // }
 
-  // ✅ Set active menu item based on current route
-  const currentUrl = this.router.url;
-  if (currentUrl.includes('dashboard')) {
-    this.activeMenuItem = 'dashboard';
-  } else if (currentUrl.includes('scan-creator')) {
-    this.activeMenuItem = 'scan-creator';
-  } else if (currentUrl.includes('compare-excel')) {
-    this.activeMenuItem = 'compare-excel';
-  } else if (currentUrl.includes('user-management')) {
-    this.activeMenuItem = 'administration';
-   
+  ngOnInit(): void {
+    this.loggedInUsername = localStorage.getItem('userEmail') || 'Guest';
+
+    this.passwordForm = this.fb.group({
+      currentPassword: ['', Validators.required],
+      newPassword: ['', [Validators.required, Validators.minLength(6)]],
+      confirmNewPassword: ['', Validators.required]
+    });
+
+    // const userId = localStorage.getItem("userId");
+    // if (!userId) {
+    //   //this.alertService.showAlert("User ID not found. Please log in again.", "error");
+    //   //this.router.navigateByUrl("login");
+    // }
+
+    // ✅ Set active menu item based on current route
+    const currentUrl = this.router.url;
+    if (currentUrl.includes('dashboard')) {
+      this.activeMenuItem = 'dashboard';
+    } else if (currentUrl.includes('scan-creator')) {
+      this.activeMenuItem = 'scan-creator';
+    } else if (currentUrl.includes('compare-excel')) {
+      this.activeMenuItem = 'compare-excel';
+    } else if (currentUrl.includes('user-management')) {
+      this.activeMenuItem = 'administration';
+
+    }
   }
-}
 
 
 
 
-    toggleUserDropdown(): void {
-      this.showUserDropdown = !this.showUserDropdown;
+  toggleUserDropdown(): void {
+    this.showUserDropdown = !this.showUserDropdown;
+  }
+
+  hideUserDropdown(): void {
+    // small delay to let click handlers run before closing
+    setTimeout(() => this.showUserDropdown = false, 200);
+  }
+
+  logout(): void {
+    localStorage.clear();
+    this.router.navigateByUrl('/login');
+  }
+
+  goToProfile(): void {
+    this.router.navigateByUrl('/my-profile');
+  }
+
+
+
+  support(): void {
+    this.router.navigateByUrl('/support');
+  }
+
+
+  isUpdate: boolean = false;
+
+  changePassword() {
+    this.isUpdate = true;
+
+  }
+  closePopup() {
+    this.isUpdate = false;
+  }
+  updatePassword() {
+    const userId = localStorage.getItem("userId");
+    console.log("User ID from localStorage:", userId); // ✅ This confirms user ID is retrieved
+
+    if (!userId) {
+      //this.alertService.showAlert("User ID not found. Please log in again.");
+      //return;
     }
-  
-    hideUserDropdown(): void {
-      // small delay to let click handlers run before closing
-      setTimeout(() => this.showUserDropdown = false, 200);
-    }
-  
-    logout(): void {
-      localStorage.clear();
-      this.router.navigateByUrl('/login');
-    }
-  
-    goToProfile(): void {
-      this.router.navigateByUrl('/my-profile');
-    }
-  
 
-  
-    support(): void {
-      this.router.navigateByUrl('/support');
+    const payload = {
+      userId: userId, // This is the correct value
+      currentPassword: this.passwordForm.value.currentPassword,
+      newPassword: this.passwordForm.value.newPassword,
+      confirmNewPassword: this.passwordForm.value.confirmNewPassword
+    };
+
+    console.log("Password update payload:", payload); // ✅ Log the payload
+
+    // Change HTTP request method to PUT
+    this.http.put("http://172.16.100.66:5221/api/user/change-password", payload)
+      .subscribe({
+        next: (res: any) => {
+          console.log("Password change response:", res); // ✅ Log the response
+          this.alertService.showAlert(res.message || "Password changed successfully.");
+          this.router.navigateByUrl("login");
+        },
+        error: (err) => {
+          console.error("Password change error:", err); // ✅ Log the error
+          this.alertService.showAlert("Failed to change password.");
+        }
+      });
+  }
+
+
+
+
+  activeMenuItem: string | null = 'dashboard'; // default active is dashboard
+
+
+  // closeAdminPanel() {
+  //   this.isAdminExpanded = false;
+  // }
+  closeAdminPanel() {
+    this.isAdminExpanded = false;
+    if (this.activeMenuItem === 'administration') {
+      this.activeMenuItem = null;
     }
+  }
 
+  // setActive(menuItem: string): void {
+  //   this.activeMenuItem = menuItem; 
+  // }
 
-    isUpdate:boolean=false;
+  setActive(menuItem: string) {
+    this.activeMenuItem = menuItem;
+    this.isAdminExpanded = false;// Close all expanded panels
 
-    changePassword(){
-      this.isUpdate=true;
+  }
 
-    }
-    closePopup(){
-      this.isUpdate=false;
-    }
-    updatePassword() {
-      const userId = localStorage.getItem("userId");
-      console.log("User ID from localStorage:", userId); // ✅ This confirms user ID is retrieved
-    
-      if (!userId) {
-        //this.alertService.showAlert("User ID not found. Please log in again.");
-        //return;
-      }
-    
-      const payload = {
-        userId: userId, // This is the correct value
-        currentPassword: this.passwordForm.value.currentPassword,
-        newPassword: this.passwordForm.value.newPassword,
-        confirmNewPassword: this.passwordForm.value.confirmNewPassword
-      };
-    
-      console.log("Password update payload:", payload); // ✅ Log the payload
-    
-      // Change HTTP request method to PUT
-      this.http.put("http://172.16.100.66:5221/api/user/change-password", payload)
-        .subscribe({
-          next: (res: any) => {
-            console.log("Password change response:", res); // ✅ Log the response
-            this.alertService.showAlert(res.message || "Password changed successfully.");
-            this.router.navigateByUrl("login");
-          },
-          error: (err) => {
-            console.error("Password change error:", err); // ✅ Log the error
-            this.alertService.showAlert("Failed to change password.");
-          }
-        });
-    }
-    
+  toggleAdministration() {
+    this.isAdminExpanded = !this.isAdminExpanded;
+    this.activeMenuItem = this.isAdminExpanded ? 'administration' : null;
+  }
 
-    closeAdminPanel() {
-      this.isAdminExpanded = false;
-    }
-    
-    activeMenuItem: string = 'dashboard'; // default active is dashboard
-
-setActive(menuItem: string): void {
-  this.activeMenuItem = menuItem; // only one active at a time
-}
 
 }

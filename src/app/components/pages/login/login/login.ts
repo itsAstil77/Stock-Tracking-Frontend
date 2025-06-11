@@ -74,7 +74,7 @@ export class Login {
 
     this.isSendingOTP = true;
 
-    this.http.post("http://localhost:5221/api/auth/forgot-password", this.forgotPasswordForm.value)
+    this.http.post("http://localhost:5041/api/auth/forgot-password", this.forgotPasswordForm.value)
       .subscribe({
         next: (res: any) => {
           this.alertService.showAlert("OTP sent! Please check your email.");

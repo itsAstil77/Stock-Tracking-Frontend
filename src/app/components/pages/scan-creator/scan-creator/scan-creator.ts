@@ -108,7 +108,7 @@ toggleAllCheckboxes(event: Event) {
 
 
 
-qrCodes: string[] = [];
+// qrCodes: string[] = [];
 showQRModal = false; // Controls modal visibility
 
 
@@ -146,10 +146,51 @@ showQRModal = false; // Controls modal visibility
 
 
 
+// generateQRCodes() {
+//   this.qrCodes = [];
+
+//   // Ensure excelData and selectedRows are ready
+//   if (!this.excelData || this.excelData.length < 2) {
+//     this.alertService.showAlert('No data to generate QR codes.', "error");
+//     return;
+//   }
+
+//   const selectedData = this.excelData.slice(1).filter((_, index) => this.selectedRows[index]);
+  
+
+//   if (selectedData.length === 0) {
+//     this.alertService.showAlert('Please select at least one row to generate QR codes.', "error");
+//     return;
+//   }
+
+//   // Find the index of the "Barcode" header
+//   const barcodeHeaderIndex = this.excelData[0].findIndex(header => 
+//     header.toLowerCase() === 'barcode'
+//   );
+
+//   if (barcodeHeaderIndex === -1) {
+//     this.alertService.showAlert('No "Barcode" column found in the data.', "error");
+//     return;
+//   }
+
+//   selectedData.forEach((row) => {
+//     // Get just the barcode value from the row
+//     const barcodeValue = row[barcodeHeaderIndex];
+    
+//     // Use the barcode value directly as QR content
+//     this.qrCodes.push(barcodeValue);
+//   });
+
+//   this.showQRModal = true;
+// }
+
+
+
+qrCodes: { barcode: string, description: string }[] = [];
+
 generateQRCodes() {
   this.qrCodes = [];
 
-  // Ensure excelData and selectedRows are ready
   if (!this.excelData || this.excelData.length < 2) {
     this.alertService.showAlert('No data to generate QR codes.', "error");
     return;
@@ -162,25 +203,174 @@ generateQRCodes() {
     return;
   }
 
-  // Find the index of the "Barcode" header
-  const barcodeHeaderIndex = this.excelData[0].findIndex(header => 
-    header.toLowerCase() === 'barcode'
-  );
+  // Find indexes of "Barcode" and "Description"
+  const headers = this.excelData[0].map(h => h.toLowerCase());
+  const barcodeIndex = headers.findIndex(h => h === 'barcode');
+  const descIndex = headers.findIndex(h => h === 'description');
 
-  if (barcodeHeaderIndex === -1) {
+  if (barcodeIndex === -1) {
     this.alertService.showAlert('No "Barcode" column found in the data.', "error");
     return;
   }
 
-  selectedData.forEach((row) => {
-    // Get just the barcode value from the row
-    const barcodeValue = row[barcodeHeaderIndex];
+  selectedData.forEach(row => {
+    const barcode = row[barcodeIndex];
+    const description = descIndex !== -1 ? row[descIndex] : 'No description';
     
-    // Use the barcode value directly as QR content
-    this.qrCodes.push(barcodeValue);
+    this.qrCodes.push({ barcode, description });
   });
 
   this.showQRModal = true;
 }
+
+
+
+
+
+// printLabels() {
+//   const printArea = document.getElementById('print-area');
+
+//   if (!printArea) {
+//     this.alertService.showAlert("No QR code area found.", "error");
+//     return;
+//   }
+
+//   // Make sure print area is visible
+//    printArea.style.display = 'block';
+
+//   // Give Angular time to render QR as <img>
+//   setTimeout(() => {
+//     const printWindow = window.open('', '', 'width=800,height=600');
+//     if (!printWindow) {
+//       this.alertService.showAlert("Failed to open print window.", "error");
+//       return;
+//     }
+
+//     printWindow.document.write(`
+//       <html>
+//         <head>
+//           <style>
+//             @media print {
+//               .print-label {
+//                 width: 50mm;
+//                 height: 25mm;
+//                 page-break-after: always;
+//                 text-align: center;
+//                 padding: 4mm;
+//                 box-sizing: border-box;
+//               }
+//               .print-label img {
+//                 display: block;
+//                 margin: 0 auto 3mm;
+//                 max-width: 100%;
+//                 max-height: 100%;
+//               }
+//               body {
+//                 margin: 0;
+//               }
+//             }
+//           </style>
+//         </head>
+//         <body>
+//           ${printArea.innerHTML}
+//         </body>
+//       </html>
+//     `);
+
+//     printWindow.document.close();
+//     printWindow.focus();
+//     printWindow.print();
+//     printWindow.close();
+
+//     printArea.style.display = 'none'; // hide again after printing
+//   }, 500);
+// }
+
+
+
+
+printLabels() {
+  const printArea = document.getElementById('print-area');
+
+  if (!printArea) {
+    this.alertService.showAlert("No QR code area found.", "error");
+    return;
+  }
+
+  // Make sure print area is visible
+  printArea.style.display = 'block';
+
+  // Give Angular time to render QR as <img>
+  setTimeout(() => {
+    // Create a hidden iframe instead of a new window
+    const iframe = document.createElement('iframe');
+    iframe.style.position = 'absolute';
+    iframe.style.width = '1px';
+    iframe.style.height = '1px';
+    iframe.style.left = '-9999px';
+    iframe.style.top = '-9999px';
+    document.body.appendChild(iframe);
+
+    const iframeDoc = iframe.contentDocument || iframe.contentWindow?.document;
+    
+    if (!iframeDoc) {
+      this.alertService.showAlert("Failed to create print iframe.", "error");
+      return;
+    }
+
+    iframeDoc.open();
+    iframeDoc.write(`
+      <html>
+        <head>
+          <title>Print Labels</title>
+          <style>
+            @page {
+              margin: 0;
+              size: auto;
+            }
+            body {
+              margin: 0;
+              padding: 0;
+            }
+            .print-label {
+              width: 50mm;
+              height: 25mm;
+              page-break-after: always;
+              text-align: center;
+              padding: 4mm;
+              box-sizing: border-box;
+            }
+            .print-label img {
+              display: block;
+              margin: 0 auto 3mm;
+              max-width: 100%;
+              max-height: 100%;
+            }
+          </style>
+        </head>
+        <body>
+          ${printArea.innerHTML}
+        </body>
+      </html>
+    `);
+    iframeDoc.close();
+
+    // Wait for iframe to load before printing
+    iframe.onload = () => {
+      setTimeout(() => {
+        const iframeWindow = iframe.contentWindow;
+        if (iframeWindow) {
+          iframeWindow.focus();
+          iframeWindow.print();
+        }
+        
+        // Clean up
+        document.body.removeChild(iframe);
+        printArea.style.display = 'none';
+      }, 100);
+    };
+  }, 500);
+}
+
 
 }

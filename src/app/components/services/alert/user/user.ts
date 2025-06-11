@@ -7,7 +7,8 @@ import { Observable } from 'rxjs';
 })
 export class User {
 
-  private apiUrl = 'http://localhost:5041/api/User/get-all';
+
+  private apiUrl = 'http://localhost:5041/api/User/UserSummary';
 
   constructor(private http: HttpClient) {}
 

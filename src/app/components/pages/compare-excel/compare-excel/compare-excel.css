@@ -320,3 +320,95 @@ p{
 }
 
 
+
+.navbar-center {
+  display: flex;
+  gap: 15px;
+  align-items: center;
+
+}
+
+.file-group {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.file {
+  padding: 4px;
+}
+
+.view-button {
+  background-color: #7030a0;
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-family: 'RedHatDisplay-Regular';
+  font-size: 12px;
+}
+
+
+
+
+
+.table-container {
+    width: 100%;
+    overflow-x: auto; 
+  }
+  
+ 
+  .company-table {
+    width: 100%;
+    min-width: 1200px;
+    border-collapse: collapse;
+    background: white;
+    border: 1px solid #ccc;
+    margin-top: 30px;
+  }
+  
+  
+
+  th, td {
+    border: 1px solid #ddd;
+    padding: 14px;
+    text-align: left;
+    text-align: center;
+    font-size: 14px;
+    font-family: 'RedHatDisplay-Regular';
+
+    border-left: none;
+    border-right: none;
+    border-top: 1px solid #ccc;
+    border-bottom: 1px solid #ccc;
+  }
+
+  th {
+    background-color: white;
+    color: black;
+   
+    
+  }
+  
+
+  tr:nth-child(even) {
+    background-color: #f9f9f9;
+  }
+  
+
+  img {
+    border-radius: 5px;
+  }
+  
+
+  @media (max-width: 768px) {
+    th, td {
+        padding: 8px;
+        font-size: 14px;
+    }
+    
+  }
+
+
+
