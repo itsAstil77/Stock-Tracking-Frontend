@@ -4,25 +4,22 @@
     <span class="navbar-title">Excel Scan Creator</span>
   </div>
 
+  <span class="file-name" *ngIf="uploadedFileName">
+     FileName : {{ uploadedFileName }}
+  </span>
+
   <div class="navbar-right">
     <button class="qr-button" (click)="generateQRCodes()">Generate QR Codes</button>
-    <div class="tooltip-container">
-      <button class="icon-button"><img src="assets/refresh.png" (click)="reloadPage()" alt="Refresh"></button>
+    <div class="tooltip-container" (click)="reloadPage()">
+      <button class="icon-button"><img src="assets/refresh.png" alt="Refresh"></button>
       <span class="tooltip-text">Refresh</span>
     </div>
-    <!-- <div class="tooltip-container">
-      <button class="icon-button"><img src="assets/add.png"  alt="Add"></button>
-      <span class="tooltip-text">Add</span>
-    </div> -->
-    <div class="tooltip-container">
 
-      <button class="icon-button"><img src="assets/upload.png" (click)="open()" alt="Download"></button>
+    <div class="tooltip-container" (click)="openExcelPopup()">
+      <button class="icon-button"><img src="assets/upload.png" alt="Download"></button>
       <span class="tooltip-text">Upload File</span>
     </div>
-    <!-- <div class="tooltip-container">
-      <button class="icon-button"><img src="assets/page.png"></button>
-      <span class="tooltip-text">Column Picker</span>
-    </div> -->
+
   </div>
 </nav>
 
@@ -36,13 +33,9 @@
     <p>Import File</p>
 
     <div class="pdf-box">
-      <!-- <p class="download-text">Download Sample PDF</p> -->
+
       <input type="file" (change)="onFileSelected($event)" />
     </div>
-
-    <!-- <div class="file-upload">
-      <input type="file" (change)="onFileSelected($event)" />
-    </div> -->
 
     <div class="modal-actions">
 
@@ -76,22 +69,6 @@
   </table>
 </div>
 
-<!-- 
-<button (click)="generateQRCodes()">Generate QR Codes</button> -->
-
-<!-- <div *ngIf="qrCodes.length > 0" class="qr-code-container">
-  <div *ngFor="let code of qrCodes" class="qr-item">
-    <qrcode [qrdata]="code" [width]="150" [errorCorrectionLevel]="'M'"></qrcode>
-    <p>{{ code }}</p>
-  </div>
-</div> -->
-
-
-      <!-- <div *ngFor="let code of qrCodes" class="qr-item">
-        <qrcode [qrdata]="code" [width]="150" [errorCorrectionLevel]="'M'"></qrcode>
-        <p>{{ code }}</p>
-      </div> -->
-
 
 <div class="modal-overlay" *ngIf="showQRModal">
   <div class="modal-content large">
@@ -101,8 +78,8 @@
 
 
       <div *ngFor="let item of qrCodes" class="qr-item">
-        <qrcode [qrdata]="item.barcode" [width]="150" [errorCorrectionLevel]="'M'"></qrcode>
-        <p><strong>Barcode:</strong> {{ item.barcode }}</p>
+        <qrcode [qrdata]="item.materialCode" [errorCorrectionLevel]="'M'"></qrcode>
+        <p><strong>materialCode:</strong> {{ item.materialCode }}</p>
         <p><strong>Description:</strong> {{ item.description }}</p>
       </div>
 
@@ -111,8 +88,8 @@
     </div>
 
     <div class="modal-actions">
-      <button class="clear-button" (click)="showQRModal = false">Close</button>
-      <button class="clear-button" (click)="printLabels()">Print</button>
+      <button class="clear-button" (click)="showQRModal = false">Cancel</button>
+      <button class="apply-button" (click)="printLabels()">Print</button>
 
     </div>
   </div>
@@ -121,27 +98,34 @@
 
 
 
+<!-- <div id="print-area" style="display: none">
+  <div *ngFor="let item of qrCodes" class="print-label">
+    <qrcode [qrdata]="item.materialCode" [width]="100" [errorCorrectionLevel]="'M'" elementType="img">
+    </qrcode>
+    <p><strong>{{ item.materialCode }}</strong></p>
+    <p>{{ item.description }}</p>
+  </div>
+</div> -->
+
+
 <div id="print-area" style="display: none">
   <div *ngFor="let item of qrCodes" class="print-label">
-    <qrcode
-      [qrdata]="item.barcode"
-      [width]="150"
-      [errorCorrectionLevel]="'M'"
-      elementType="img"> 
-    </qrcode>
-    <p><strong>{{ item.barcode }}</strong></p>
-    <p>{{ item.description }}</p>
+    <qrcode [qrdata]="item.materialCode" [width]="100" [errorCorrectionLevel]="'M'" elementType="img"></qrcode>
+    <div class="text-content">
+      <p class="code"><strong>{{ item.materialCode }}</strong></p>
+      <p class="desc">{{ item.description }}</p>
+    </div>
   </div>
 </div>
 
 
+  <div class="delete-modal" *ngIf="isOpenUploadExcel">
+    <div class="delete-modal-content">
+      <p>Please ensure that the following fields are provided in Excel: Material Code, Material Description, and Quantity.</p>
+      <div class="delete-modal-buttons">
 
-
-
-
-
-
-
-
-
-
+        <button class="delete-no-btn" (click)="closeExcelPopup()">Cancel</button>
+        <button class="delete-yes-btn" (click)="open()">Upload</button>
+      </div>
+    </div>
+  </div>

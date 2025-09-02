@@ -175,3 +175,22 @@ label {
 .forgot-link:hover {
     text-decoration: underline; /* Underline on hover */
 }
+
+.password-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.password-wrapper input {
+  width: 100%;
+  padding-right: 280px; /* leave space for icon */
+}
+
+.password-wrapper .toggle-icon {
+  position: absolute;
+  right: 10px;
+  cursor: pointer;
+  width: 20px;
+  height: 20px;
+}

@@ -1,2 +1,36 @@
-<p>dashboard works!</p>
-  <router-outlet></router-outlet>
+<nav class="navbar">
+  <div class="navbar-left">
+    <span class="navbar-title">Dashboard</span>
+  </div>
+</nav>
+
+<!-- Last Uploaded File Card -->
+<div class="file-cards">
+  <div class="file-card" *ngFor="let file of uploadedCount">
+     <img src="assets/files.png" class="card-icons" alt="upload icon" />
+    <h2 class="card-heading">Last Uploaded File</h2>
+    <div class="file-content">
+      {{ file.fileName }}
+    </div>
+  </div>
+<!-- </div> -->
+
+<!-- Material Count Card -->
+
+
+  <div class="file-card" *ngIf="excelCount">
+         <img src="assets/profit.png" class="card-icon" alt="upload icon" />
+    <h2 class="card-heading">Material Count</h2>
+    <div class="file-content">
+      {{ excelCount.count }}
+    </div>
+  </div>
+</div>
+
+
+
+
+
+<router-outlet></router-outlet>
+
+

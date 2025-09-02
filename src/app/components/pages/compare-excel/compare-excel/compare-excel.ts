@@ -24,66 +24,10 @@ export class CompareExcel {
 @ViewChild('fileInput1') fileInput1Ref!: ElementRef<HTMLInputElement>;
 @ViewChild('fileInput2') fileInput2Ref!: ElementRef<HTMLInputElement>;
 
-// showUploadModal = false;
-// selectedFile1: File | null = null;
-// selectedFile2: File | null = null;
-
-
-
-// onFile1Selected(event: Event) {
-//   const input = event.target as HTMLInputElement;
-//   if (input.files?.length) {
-//     this.selectedFile1 = input.files[0];
-//   }
-// }
-
-// onFile2Selected(event: Event) {
-//   const input = event.target as HTMLInputElement;
-//   if (input.files?.length) {
-//     this.selectedFile2 = input.files[0];
-//   }
-// }
 
 comparisonResult: any[] = [];
 comparisonHeaders: string[] = [];
 
-
-
-// apply() {
-
-//   if (this.selectedFile1 && this.selectedFile2) {
-//     this.scan.compareExcels(this.selectedFile1, this.selectedFile2).subscribe({
-//       next: (response) => {
-//         if (Array.isArray(response) && response.length > 0) {
-//           this.comparisonResult = response;
-//           this.comparisonHeaders = Object.keys(response[0]); 
-//         } else {
-//           this.comparisonResult = [];
-//           this.comparisonHeaders = [];
-//         }
-        
-//         this.alertService.showAlert('Files compared successfully');  
-//         this.showUploadModal = false;  
-//         this.cdRef.detectChanges();  
-//       },
-//       error: (error) => {
-//         console.error('Comparison error', error);
-//         this.alertService.showAlert('File comparison failed', "error");
-//       }
-//     });
-//   } else {
-//      this.alertService.showAlert('Please select both files before uploading.', "error");
-//   }
-// }
-
-
-
-
-// clear() {
-//   this.selectedFile1 = null;
-//   this.selectedFile2 = null;
-//   this.showUploadModal = false;
-// }
 
 
 
@@ -224,6 +168,28 @@ importOnline() {
 
   }
 
+downloadComparison() {
+  if (!this.comparisonResult || this.comparisonResult.length === 0) {
+    this.alertService.showAlert('No comparison data available to download', "error");
+    return;
+  }
+
+  // Convert JSON to worksheet
+  const worksheet = XLSX.utils.json_to_sheet(this.comparisonResult);
+
+  // Create workbook and append the worksheet
+  const workbook = XLSX.utils.book_new();
+  XLSX.utils.book_append_sheet(workbook, worksheet, "Comparison");
+
+  // Export to Excel
+  const excelBuffer = XLSX.write(workbook, { bookType: 'xlsx', type: 'array' });
+  const blob = new Blob([excelBuffer], { type: 'application/octet-stream' });
+
+  const fileName = `ComparisonResult-${new Date().toISOString().split('T')[0]}.xlsx`;
+  saveAs(blob, fileName);
+
+  this.alertService.showAlert('Comparison Excel downloaded successfully', "success");
+}
 
 
 }

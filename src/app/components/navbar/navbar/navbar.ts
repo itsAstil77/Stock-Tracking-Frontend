@@ -165,18 +165,18 @@ export class Navbar implements OnInit {
 
 
 
-  activeMenuItem: string | null = 'dashboard'; // default active is dashboard
+  // activeMenuItem: string | null = 'dashboard'; 
 
 
-  // closeAdminPanel() {
-  //   this.isAdminExpanded = false;
-  // }
   closeAdminPanel() {
     this.isAdminExpanded = false;
-    if (this.activeMenuItem === 'administration') {
-      this.activeMenuItem = null;
-    }
   }
+  // closeAdminPanel() {
+  //   this.isAdminExpanded = false;
+  //   if (this.activeMenuItem === 'administration') {
+  //     this.activeMenuItem = null;
+  //   }
+  // }
 
   // setActive(menuItem: string): void {
   //   this.activeMenuItem = menuItem; 
@@ -190,8 +190,8 @@ export class Navbar implements OnInit {
 
   toggleAdministration() {
     this.isAdminExpanded = !this.isAdminExpanded;
-    this.activeMenuItem = this.isAdminExpanded ? 'administration' : null;
+    this.activeMenuItem = this.isAdminExpanded ? 'administration' : "";
   }
-
+  activeMenuItem: string = '';
 
 }

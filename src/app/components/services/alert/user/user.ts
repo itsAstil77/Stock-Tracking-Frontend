@@ -33,4 +33,17 @@ createUser(userData: any): Observable<any> {
     return this.http.delete(`${this.baseUrl}/delete/${userId}`);
   }
 
+  private base2Url = 'http://localhost:5041/api/Excel/uploadedfileSummary';
+
+  getUploadedName(){
+     return this.http.get(this.base2Url);
+  }
+
+
+  private base3Url = 'http://localhost:5041/api/Excel/count';
+
+  getCount(){
+    return this.http.get(this.base3Url);
+  }
+
 }

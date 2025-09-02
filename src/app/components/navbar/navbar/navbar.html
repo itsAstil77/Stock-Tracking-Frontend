@@ -34,14 +34,14 @@
   <!-- Sidebar -->
   <aside class="sidebar" [class.collapsed]="isSidebarCollapsed">
     <ul class="menu">
-      <li class="menu-item" (click)="setActive('dashboard')" [class.active]="activeMenuItem === 'dashboard'">
+      <li class="menu-item" (click)="setActive('dashboard')" routerLink="/dashboard" [class.active]="activeMenuItem === 'dashboard'">
         <div class="tooltip-container">
           <img src="assets/dashboard.png" routerLink="/dashboard" alt="Dashboard Icon" class="menu-icon" />
           <a routerLink="/dashboard" [class.hidden]="isSidebarCollapsed" class="menu-text">Dashboard</a>
           <span class="tooltip-text" [ngStyle]="{ left: isSidebarCollapsed ? '70px' : '250px' }">Dashboard</span>
         </div>
       </li>
-      <li class="menu-item" (click)="setActive('scan-creator')" [class.active]="activeMenuItem === 'scan-creator'">
+      <li class="menu-item" (click)="setActive('scan-creator')" routerLink="/scan-creator" [class.active]="activeMenuItem === 'scan-creator'">
         <div class="tooltip-container">
           <img src="assets/excel.png" routerLink="/scan-creator" alt="scan-creator Icon" class="menu-icon" />
           <a routerLink="/scan-creator" [class.hidden]="isSidebarCollapsed" class="menu-text">Excel Scan Creator</a>
@@ -51,7 +51,7 @@
 
       </li>
 
-      <li class="menu-item" (click)="setActive('compare-excel')" [class.active]="activeMenuItem === 'compare-excel'">
+      <li class="menu-item" (click)="setActive('compare-excel')" routerLink="/compare-excel" [class.active]="activeMenuItem === 'compare-excel'">
         <div class="tooltip-container">
           <img src="assets/spreadsheet.png" routerLink="/compare-excel" alt="Dashboard Icon" class="menu-icon" />
           <a routerLink="/compare-excel" [class.hidden]="isSidebarCollapsed" class="menu-text">Compare Excel</a>

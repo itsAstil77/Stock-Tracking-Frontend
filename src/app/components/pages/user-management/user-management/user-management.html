@@ -5,23 +5,15 @@
   </div>
 
   <div class="navbar-right">
-    <div class="tooltip-container">
-      <button class="icon-button"><img src="assets/refresh.png" (click)="reloadPage()" alt="Refresh"></button>
+    <div class="tooltip-container" (click)="reloadPage()" >
+      <button class="icon-button"><img src="assets/refresh.png" alt="Refresh"></button>
       <span class="tooltip-text">Refresh</span>
     </div>
-    <div class="tooltip-container">
-      <button class="icon-button"><img src="assets/add.png" (click)="openAddUserPopup()" alt="Add"></button>
+    <div class="tooltip-container" (click)="openAddUserPopup()">
+      <button class="icon-button"><img src="assets/add.png"  alt="Add"></button>
       <span class="tooltip-text">Add</span>
     </div>
-    <!-- <div class="tooltip-container">
 
-      <button class="icon-button"><img src="assets/download.png"  alt="Download"></button>
-      <span class="tooltip-text">Upload File</span>
-    </div>
-    <div class="tooltip-container">
-      <button class="icon-button"><img src="assets/page.png"></button>
-      <span class="tooltip-text">Column Picker</span>
-    </div> -->
   </div>
 </nav>
 
