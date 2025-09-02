@@ -30,48 +30,18 @@
 }
 
 .file-cards {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-    gap: 20px;
-    padding: 10px;
-    margin-left: 31px;
-    margin-top: 50px;
-}
-/* 
-.file-card {
-     position: relative; 
-    background: #fff;
-    border-radius: 4px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-    width: 320px;
-    height: 200px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    padding: 15px;
+  display: flex;
+  flex-wrap: wrap;          /* ✅ allow wrapping into multiple rows */
+  gap: 30px;                /* ✅ space between cards */
+  padding: 20px;
+  justify-content: flex-start; /* ✅ align items from the left */
+  align-items: flex-start;     /* ✅ align items at the top */
 }
 
-
-
-
-.card-heading {
-    font-size: 17px;
-    font-weight: bold;
-    color: #6a1b9a;
-    margin-bottom: 15px;
-    font-family: 'RedHatDisplay-Regular';
-    
-    
+.file-cards .card {
+  flex: 1 1 280px;          /* ✅ grow, shrink, min width */
+  max-width: 320px;         /* optional to avoid stretching too wide */
 }
-
-.file-content {
-    font-size: 13px;
-    font-weight: bolder;
-    color: #333;
-    font-family: 'RedHatDisplay-Regular';
-    text-align: center;
-} */
 
 
 .file-card {

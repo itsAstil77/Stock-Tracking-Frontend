@@ -170,11 +170,11 @@ export class ScanCreator {
 
     // Flexible matching for columns
     const materialCodeIndex = headers.findIndex(h =>
-      h === 'materialcode' || h === 'barcode' || h === 'material code'
+      h === 'material code' || h === 'barcode' || h === 'material code'
     );
 
     const descIndex = headers.findIndex(h =>
-      h === 'materialdescription' || h === 'description' || h === 'desc' || h === 'details'
+      h === 'material description' || h === 'description' || h === 'desc' || h === 'details'
     );
 
     if (materialCodeIndex === -1) {
