@@ -112,7 +112,7 @@
   <div *ngFor="let item of qrCodes" class="print-label">
     <qrcode [qrdata]="item.materialCode" [width]="100" [errorCorrectionLevel]="'M'" elementType="img"></qrcode>
     <div class="text-content">
-      <p class="code"><strong>{{ item.materialCode }}</strong></p>
+      <p class="code"><strong>{{ getSafeMaterialCode(item.materialCode) }}</strong></p>
       <p class="desc">{{ item.description }}</p>
     </div>
   </div>

@@ -7,29 +7,99 @@
 <!-- Last Uploaded File Card -->
 <div class="file-cards">
   <div class="file-card" *ngFor="let file of uploadedCount">
-     <img src="assets/files.png" class="card-icons" alt="upload icon" />
-    <h2 class="card-heading">Last Uploaded File</h2>
+    <img src="assets/files.png" class="card-icons" alt="upload icon" />
+    <h2 class="card-heading">Last Uploaded Filename & count</h2>
     <div class="file-content">
-      {{ file.fileName }}
+      <span class="label">Filename : </span>
+      <span class="value">{{ file.fileName }}</span>
+    </div>
+    <div class="file-content-count">
+      <span class="label">Count : </span>
+      <span class="value">{{ excelCount.count }}</span>
     </div>
   </div>
 
 
 
+  <div class="file-card mismatch-card" *ngIf="mismatchSummary">
+    <img src="assets/is-not-equal-to.png" class="card-icon" alt="mismatch icon" />
+    <h2 class="card-heading">Mismatched Items</h2>
 
-  <div class="file-card" *ngIf="excelCount">
-         <img src="assets/profit.png" class="card-icon" alt="upload icon" />
-    <h2 class="card-heading">Material Count</h2>
-    <div class="file-content">
-      {{ excelCount.count }}
+    <div class="simple-pie-chart">
+      <div class="pie" [style.--percentage]="(mismatchSummary.mismatchItems / mismatchSummary.totalItems * 100) + '%'">
+        <div class="pie-content">
+          <!-- <span class="mismatch-count">{{ mismatchSummary.mismatchItems }}</span>
+        <span class="total-count">/{{ mismatchSummary.totalItems }}</span> -->
+        </div>
+      </div>
+    </div>
+
+    <div class="mismatch-legend">
+      <div class="legend-item">
+        <span class="legend-rect purple"></span>
+        Mismatched — {{ mismatchSummary.mismatchItems }}
+      </div>
+      <div class="legend-item">
+        <span class="legend-rect gray"></span>
+        Total — {{ mismatchSummary.totalItems }}
+      </div>
+    </div>
+
+  </div>
+
+
+  <!-- 
+  <div class="file-cards"> -->
+  <div class="file-card2" *ngIf="highestDifferences && highestDifferences.length > 0">
+    <div class="size">
+      <img src="assets/up-arrow.png" class="card-icon" alt="upload icon" />
+    </div>
+    <h2 class="card-heading">Top 10 Highest Mismatches</h2>
+
+    <div class="file-content highest-list">
+      <ul>
+        <li *ngFor="let item of highestDifferences; let i = index">
+          <span>{{ i + 1 }}. {{ item.materialCode}}</span>
+          <span class="difference-value">{{ item.difference }}</span>
+        </li>
+      </ul>
     </div>
   </div>
+
+  <div class="file-card2" *ngIf="lowestDifferences && lowestDifferences.length > 0">
+    <div class="size">
+      <img src="assets/down-arrow.png" class="card-icon" alt="upload icon" />
+    </div>
+    <h2 class="card-heading">Top 10 Lowest Mismatches</h2>
+
+    <div class="file-content highest-list">
+      <ul>
+        <li *ngFor="let item of lowestDifferences; let i = index">
+          <span>{{ i + 1 }}. {{ item.materialCode}}</span>
+          <span class="difference-value">{{ item.difference }}</span>
+        </li>
+      </ul>
+    </div>
+  </div>
+  <!-- </div> -->
+
+
+
+
 </div>
 
 
 
 
 
+
+
+<!-- <div class="file-card" *ngIf="excelCount">
+    <img src="assets/profit.png" class="card-icon" alt="upload icon" />
+    <h2 class="card-heading">Uploaded Stock Count</h2>
+    <div class="file-content1">
+      {{ excelCount.count }}
+    </div>
+  </div> -->
+
 <router-outlet></router-outlet>
-
-

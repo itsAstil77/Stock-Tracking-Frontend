@@ -1,97 +1,253 @@
+/* Reset */
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
-
-
 
 /* Navbar */
 .navbar {
-    width: 100%;
-    height: 60px;
-    background-color: white;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 0 20px;
-    /* color: black; */
-    font-size: 20px;
-    font-weight: bolder;
-
+  width: 100%;
+  height: 60px;
+  background: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 20px;
+  font-size: 20px;
+  font-weight: bold;
+  border-bottom: 1px solid #eee;
 }
 
-
-/* Left Side */
 .navbar-left {
-    font-size: 15px;
-    font-family: 'RedHatDisplay-Regular';
+  font-size: 16px;
+  font-family: 'RedHatDisplay-Regular';
 }
 
+/* Cards Container */
 .file-cards {
   display: flex;
-  flex-wrap: wrap;          /* ✅ allow wrapping into multiple rows */
-  gap: 30px;                /* ✅ space between cards */
+  flex-wrap: wrap;
+  gap: 30px;
   padding: 20px;
-  justify-content: flex-start; /* ✅ align items from the left */
-  align-items: flex-start;     /* ✅ align items at the top */
+  align-items: flex-start;
+    justify-content: space-between;
 }
 
-.file-cards .card {
-  flex: 1 1 280px;          /* ✅ grow, shrink, min width */
-  max-width: 320px;         /* optional to avoid stretching too wide */
-}
-
-
+/* Generic Card */
 .file-card {
+   flex: 1 1 calc(25% - 30px);
   position: relative;
   background: #fff;
-  border-radius: 4px;
+  border-radius: 6px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-  width: 320px;
-  height: 200px;
+  width: 380px;
+  min-height: 250px;
+  padding: 15px;
   display: flex;
   flex-direction: column;
-  align-items: flex-start;   /* push items to the left */
-  justify-content: flex-start; /* push items to the top */
-  padding: 15px;
 }
 
+.file-card2 {
+   flex: 1 1 calc(25% - 30px);
+  position: relative;
+  background: #fff;
+  border-radius: 6px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  width: 380px;
+  min-height: 250px;
+  padding: 15px;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Card Heading */
 .card-heading {
+  font-size: 18px;
+  font-weight: bold;
+  color: #6a1b9a;
+  font-family: 'RedHatDisplay-Regular';
+  margin-bottom: 10px;
+}
+
+/* Main File Content */
+.file-content,
+.file-content1 {
   font-size: 17px;
   font-weight: bold;
-  color: #6a1b9a; 
-  margin-bottom: 10px;
-  font-family: 'RedHatDisplay-Regular';
-  text-align: left;  /* ensure text aligns left */
-  width: 100%;       /* so heading doesn’t stay narrow */
-}
-
-.file-content {
-  font-size: 17px;
-  font-weight: bolder;
   color: #333;
   font-family: 'RedHatDisplay-Regular';
-  text-align: center;  /* aligns filename/number left too */
+  text-align: center;
   width: 100%;
   margin-top: 55px;
 }
 
+.file-content-count {
+  font-size: 17px;
+  font-weight: bold;
+  color: #333;
+  font-family: 'RedHatDisplay-Regular';
+  text-align: center;
+  width: 100%;
+  margin-top:0px;
+}
 
+.file-content1 {
+  font-size: 40px;
+}
+.label {
+  color: black;
+  font-family: 'RedHatDisplay-Regular';
+}
+
+.value {
+  color: #7030a0;
+}
+
+/* Icon for cards */
 .card-icon {
   position: absolute;
-  top: 10px;
-  right: 10px;
-  width: 30px;   /* adjust size */
+  top: 12px;
+  right: 12px;
+  width: 30px;
   height: 30px;
 }
 
 .card-icons {
   position: absolute;
-  top: 10px;
-  right: 10px;
-  width: 25px;   /* adjust size */
+  top: 12px;
+  right: 12px;
+  width: 25px;
   height: 25px;
 }
 
+/* Highest / Lowest List Container */
+.highest-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  width: 100%;
+  margin-top: 15px;
+}
+
+.highest-list ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+/* List Items */
+.highest-list li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #f9f9f9;
+  border-radius: 4px;
+  padding: 8px 12px;
+  font-size: 14px;
+  font-weight: 500;
+  font-family: 'RedHatDisplay-Regular';
+  color: #333;
+  transition: background 0.2s ease-in-out;
+}
+
+.highest-list li:hover {
+  background: #f0f0f0;
+}
+
+/* Difference Value Highlight */
+.highest-list .difference-value {
+  font-weight: bold;
+  color: #6a1b9a;
+  font-size: 15px;
+}
+
+
+
+
+
+.simple-pie-chart {
+  margin: 15px auto;
+}
+
+.pie {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  background: conic-gradient(#7030a0 0% var(--percentage, 0%),
+      #e0e0e0 var(--percentage, 0%) 100%);
+  position: relative;
+  margin: 0 auto;
+}
+
+.pie-content {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  background: white;
+  border-radius: 50%;
+  width: 80px;
+  height: 80px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.mismatch-count {
+  font-size: 18px;
+  font-weight: bold;
+  color: #7030a0;
+  line-height: 1;
+}
+
+.total-count {
+  font-size: 14px;
+  color: #666;
+  line-height: 1;
+}
+
+.mismatch-label {
+  text-align: center;
+  font-size: 14px;
+  font-weight: 600;
+  color: #333;
+  margin-top: 10px;
+
+}
+
+
+.mismatch-legend {
+  display: flex;
+  justify-content: space-around;
+  margin-top: 15px;
+  font-size: 0.9rem;
+}
+
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-family: 'RedHatDisplay-Regular';
+  color: #333;
+  font-weight: 600;
+}
+
+.legend-rect {
+  width: 18px;
+  height: 12px;
+  display: inline-block;
+  border-radius: 3px;
+}
+
+.legend-rect.purple {
+  background-color: #7030a0;
+  /* Purple */
+}
+
+.legend-rect.gray {
+  background-color: #e0e0e0;
+  /* Gray */
+}

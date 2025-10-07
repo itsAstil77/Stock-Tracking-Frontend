@@ -45,5 +45,23 @@ createUser(userData: any): Observable<any> {
   getCount(){
     return this.http.get(this.base3Url);
   }
+   private base4Url = 'http://localhost:5041/api/ExcelCompare/top10-highest-differences';
+
+  gethighestdifference(){
+    return this.http.get(this.base4Url);
+  }
+
+  private base5Url = 'http://localhost:5041/api/ExcelCompare/top10-smallest-differences';
+
+  getlowestdifference(){
+    return this.http.get(this.base5Url);
+  }
+
+   private base6Url = 'http://localhost:5041/api/ExcelCompare/mismatch-summary';
+
+
+  getdifferenceoutof(){
+    return this.http.get(this.base6Url);
+  }
 
 }

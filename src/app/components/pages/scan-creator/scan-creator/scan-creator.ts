@@ -202,6 +202,11 @@ export class ScanCreator {
     this.showQRModal = true;
   }
 
+getSafeMaterialCode(code: string): string {
+  // Replace regular hyphen with non-breaking hyphen (U+2011)
+  return code ? code.replace(/-/g, '\u2011') : '';
+}
+
 
 
 
@@ -363,14 +368,20 @@ export class ScanCreator {
      
             }
  .text-content .code {
-  font-weight: bold;   
+font-weight: bold;   
   font-size: 3mm;
+  margin: 0mm;
+  line-height: 1.0;
+  white-space: normal; 
+  word-break: break-word;  
+  margin-top:5px;
+
 }
 
 .text-content .desc {
   margin: 0mm;
   font-size: 3mm;
-   line-height: 1.0;
+  line-height: 1.0;
 }
           </style>
         </head>
@@ -385,7 +396,7 @@ export class ScanCreator {
         setTimeout(() => {
           const iframeWindow = iframe.contentWindow;
           if (iframeWindow) {
-            iframeWindow.focus();
+            iframeWindow.focus();   
             iframeWindow.print();
           }
           document.body.removeChild(iframe);

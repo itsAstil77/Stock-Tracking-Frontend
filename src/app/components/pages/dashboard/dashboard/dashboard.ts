@@ -3,6 +3,7 @@ import { RouterOutlet } from '@angular/router';
 import { User } from '../../../services/alert/user/user';
 import { CommonModule } from '@angular/common';
 
+
 @Component({
   selector: 'app-dashboard',
   imports: [RouterOutlet, CommonModule],
@@ -14,6 +15,9 @@ export class Dashboard implements OnInit {
   ngOnInit(): void {
     this.getUploadedCount();
     this.getExcelCount();
+     this.getHighestDifference();
+    this.getLowestDifference();
+    this.getDifferenceOutOf();
 
   }
 
@@ -21,6 +25,10 @@ export class Dashboard implements OnInit {
 
   uploadedCount: any[] = [];
   excelCount: any={};
+   highestDifferences: any[] = [];
+  lowestDifferences: any[] = [];
+  mismatchSummary: any = {}; 
+
 
   getUploadedCount() {
     this.user.getUploadedName().subscribe({
@@ -45,5 +53,51 @@ getExcelCount() {
     }
   });
 }
+
+ getHighestDifference() {
+    this.user.gethighestdifference().subscribe({
+      next: (res: any) => {
+        this.highestDifferences = res;
+        this.cdr.detectChanges();
+      },
+      error: () => {
+        console.log("Error loading highest differences");
+      }
+    });
+  }
+
+  // ✅ Get top 10 smallest differences
+  getLowestDifference() {
+    this.user.getlowestdifference().subscribe({
+      next: (res: any) => {
+        this.lowestDifferences = res;
+        this.cdr.detectChanges();
+      },
+      error: () => {
+        console.log("Error loading lowest differences");
+      }
+    });
+  }
+mismatchFraction: string = '';   // to store "77 / 100"
+
+getDifferenceOutOf() {
+  this.user.getdifferenceoutof().subscribe({
+    next: (res: any) => {
+      this.mismatchSummary = res;
+
+      // Assuming API returns { mismatchedItems: 77, totalItems: 100 }
+      this.mismatchFraction = `${res.mismatchedItems} / ${res.totalItems}`;
+
+      this.cdr.detectChanges();
+      console.log("Mismatch summary loaded:", this.mismatchFraction);
+    },
+    error: () => {
+      console.log("Error loading mismatch summary");
+    }
+  });
+}
+
+
+  
 
 }

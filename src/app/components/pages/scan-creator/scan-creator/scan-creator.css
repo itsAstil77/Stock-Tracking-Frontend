@@ -315,21 +315,21 @@ img {
   margin-left: 10px;
   font-size: 14px;
   color: #7030a0;
-}
-.print-label {
+}.print-label {
   width: 70mm;
   height: 30mm;
   display: flex;
-  align-items: flex-start;   /* QR + text start same top */
+  align-items: flex-start;
   padding: 3mm;
   box-sizing: border-box;
   page-break-after: always;
 }
 
+.print-label qrcode,
 .print-label img {
-  width: 18mm;              /* ✅ a bit smaller */
+  width: 18mm;
   height: 18mm;
-  margin-right: 2mm;        /* small gap */
+  margin-right: 2mm;
 }
 
 .text-content {
@@ -337,21 +337,36 @@ img {
   flex-direction: column;
   justify-content: flex-start;
   text-align: left;
-  font-size: 10pt;
-  line-height: 1.1;         /* ✅ tighter text */
+  font-size: 9pt;
+  line-height: 1.1;
+  max-width: 45mm;      /* ensure text doesn’t expand past label */
 }
 
 .text-content .code {
   font-weight: bold;
-  margin: 2mm 0 1mm 0;   /* ✅ push it slightly down */
   font-size: 10pt;
+  margin-bottom: 1mm;
+
+  /* ✅ force it to stay on one line */
+  white-space: nowrap !important;
+  overflow-wrap: normal !important;
+  word-break: keep-all !important;
+  hyphens: none !important;       /* stop breaking at hyphens */
+  
+  max-width: 48mm;                /* adjust if needed */
+  overflow: hidden;               /* hide overflow if code is too long */
+  text-overflow: ellipsis;        /* optional: show … if too long */
+  display: inline-block;          /* ensure inline behavior */
 }
+
+
 
 .text-content .desc {
-  margin: 0;
-  font-size: 9pt;
+  font-size: 8pt;
+  line-height: 1.1;
+  white-space: normal;   /* ✅ allow wrapping for long description */
+  word-wrap: break-word;
 }
-
 
 /* delete popupModal*/
 .delete-modal {
